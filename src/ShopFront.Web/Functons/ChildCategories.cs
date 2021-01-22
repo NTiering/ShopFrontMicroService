@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using ShopFront.Api.ProdCat.Ext;
+using ShopFront.Common;
 using ShopFront.Cqrs.Queries;
 using ShopFront.Inventory.Queries.Categories;
-using ShopFront.Common;
-using ShopFront.Web.Ext;
+using System.Threading.Tasks;
 
-namespace ShopFront.Web.Functons
+namespace ShopFront.Api.ProdCat.Functons
 {
     public class ChildCategories
     {
@@ -18,8 +18,8 @@ namespace ShopFront.Web.Functons
         public ChildCategories(IQueryMediator queryMediator)
         {
             _queryMediator = queryMediator;
-
         }
+
         [FunctionName("ChildCategories")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "Categories/{categoryId}")]

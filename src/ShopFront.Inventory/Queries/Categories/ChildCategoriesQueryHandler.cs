@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopFront.Common;
+﻿using ShopFront.Common;
 using ShopFront.Cqrs.Queries;
 using ShopFront.Inventory.DataModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopFront.Inventory.Queries.Categories
@@ -37,13 +33,11 @@ namespace ShopFront.Inventory.Queries.Categories
 
             var data = new
             {
-                catagory = db.Category.FirstOrDefault(x=>x.CategoryId == qry.ParentCatId),
+                catagory = db.Category.FirstOrDefault(x => x.CategoryId == qry.ParentCatId),
                 childCategories
             };
 
             return new JsonQueryResult(data);
         }
-
-
     }
 }

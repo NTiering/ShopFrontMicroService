@@ -4,37 +4,50 @@ using System.Collections.Generic;
 
 namespace ShopFront.Inventory.DataModels
 {
-    public class TempDataContext : IDisposable
+    public class DataContext : DbContext
     {
-        public List<Category> Category { get; set; } = new List<Category>();
+        public DbSet<Category> Category { get; set; }
 
-        public List<Product> Products { get; set; } = new List<Product>();
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlite("Data Source=shopfront.db");
 
-        public TempDataContext()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Category.AddRange(new[]
-            {
-
+            modelBuilder.Entity<Category>()
+                        .HasData(
                         new Category { CategoryId = 1, Name = "Mens", Description = "Mens T-Shirts" },
                         new Category { CategoryId = 2, Name = "Womens", Description = "Womens T-Shirts" },
                         new Category { CategoryId = 3, Name = "Kids", Description = "Kids T-Shirts" },
                         new Category { CategoryId = 4, Name = "Sale", Description = "Upto 30% off" },
                         new Category { CategoryId = 5, Name = "10% off", Description = "Up to 10% off", ParentCategoryId = 4 },
                         new Category { CategoryId = 6, Name = "20% off", Description = "Up to 20% off", ParentCategoryId = 4 },
-                        new Category { CategoryId = 7, Name = "30% off", Description = "Up to 30% off", ParentCategoryId = 4 },
+                        new Category { CategoryId = 7, Name = "30% off", Description = "Up to 30% off", ParentCategoryId = 4 }
+            );
+        }
+    }
 
-                        new Category { CategoryId = 5, Name = "Small", Description = "Tiny tees", ParentCategoryId = 1 },
-                        new Category { CategoryId = 6, Name = "Med", Description = "Regular Tees", ParentCategoryId = 1 },
-                        new Category { CategoryId = 7, Name = "Large", Description = "Bigger Tees", ParentCategoryId = 1 },
+    public class TempDataContext : IDisposable
+    {
+        public TempDataContext()
+        {
+            Category.AddRange(new[]
+            {
+                        new Category { CategoryId = 1, Name = "Mens", Description = "Mens T-Shirts" },
+                        new Category { CategoryId = 2, Name = "Womens", Description = "Womens T-Shirts" },
+                        new Category { CategoryId = 3, Name = "Kids", Description = "Kids T-Shirts" },
+                        new Category { CategoryId = 4, Name = "Sale", Description = "Upto 30% off" },
 
-                        new Category { CategoryId = 8, Name = "Small", Description = "Tiny tees", ParentCategoryId = 2 },
-                        new Category { CategoryId = 9, Name = "Med", Description = "Regular Tees", ParentCategoryId = 2 },
-                        new Category { CategoryId = 10, Name = "Large", Description = "Bigger Tees", ParentCategoryId = 2 },
+                        new Category { CategoryId = 5, Name = "Summer T-shirts", Description = "Mens T-Shirts for summer" , ParentCategoryId = 1},
+                        new Category { CategoryId = 6, Name = "Winter T-shirts", Description = "Mens T-Shirts for winter" , ParentCategoryId = 1},
 
-                        new Category { CategoryId = 11, Name = "Small", Description = "0-1 years", ParentCategoryId = 3 },
-                        new Category { CategoryId = 12, Name = "Med", Description = "1-3 years", ParentCategoryId = 3 },
-                        new Category { CategoryId = 13, Name = "Large", Description = "5-10 years", ParentCategoryId = 3 }
+                        new Category { CategoryId = 7, Name = "Fun T-shirts", Description = "Womens funny T-shirts" , ParentCategoryId = 2},
+                        new Category { CategoryId = 8, Name = "Long Sleeved T-shirts", Description = "Long sleeved T-shirts" , ParentCategoryId = 2},
 
+                        new Category { CategoryId = 9, Name = "Boys T-shirts", Description = "T-shirts for girls" , ParentCategoryId = 3},
+                        new Category { CategoryId = 10, Name = "Girls T-shirts", Description = "T-shirts for boys" , ParentCategoryId = 3},
+
+                        new Category { CategoryId = 11, Name = "30% off", Description = "T-shirts at 30% reduction" , ParentCategoryId = 4},
+                        new Category { CategoryId = 12, Name = "10% off", Description = "T-shirts at 10% reduction" , ParentCategoryId = 4}
             });
 
             // add 25 products to each category
@@ -68,35 +81,23 @@ namespace ShopFront.Inventory.DataModels
                         ProductId = productId++,
                         Price = 12.99M,
                         Title = $"{c.Name} ({desc})",
+                        Options = new Dictionary<string,string[]>()  
+                        {
+                            { "Size", new[]{"XS","S","M","L","XL" } },
+                            { "Colour", new[]{"Red","Green","Blue"} }
+                        },
                         SubTitle = $"A nice T-shirt with a print of {desc}"
                     });
                 }
             }
         }
 
+        public List<Category> Category { get; set; } = new List<Category>();
+
+        public List<Product> Products { get; set; } = new List<Product>();
+
         public void Dispose()
         {
-        }
-    }
-
-    public class DataContext : DbContext
-    {
-        public DbSet<Category> Category { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=shopfront.db");
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Category>()
-                        .HasData(
-                        new Category { CategoryId = 1, Name = "Mens", Description = "Mens T-Shirts" },
-                        new Category { CategoryId = 2, Name = "Womens", Description = "Womens T-Shirts" },
-                        new Category { CategoryId = 3, Name = "Kids", Description = "Kids T-Shirts" },
-                        new Category { CategoryId = 4, Name = "Sale", Description = "Upto 30% off" },
-                        new Category { CategoryId = 5, Name = "10% off", Description = "Up to 10% off", ParentCategoryId = 4 },
-                        new Category { CategoryId = 6, Name = "20% off", Description = "Up to 20% off", ParentCategoryId = 4 },
-                        new Category { CategoryId = 7, Name = "30% off", Description = "Up to 30% off", ParentCategoryId = 4 }
-            );
         }
     }
 }

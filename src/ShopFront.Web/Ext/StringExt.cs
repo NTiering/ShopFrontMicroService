@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShopFront.Web.Ext
+﻿namespace ShopFront.Api.ProdCat.Ext
 {
     public static class StringExt
     {

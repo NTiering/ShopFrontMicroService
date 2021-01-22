@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using ShopFront.Common;
+﻿using ShopFront.Common;
 using ShopFront.Cqrs.Queries;
 using ShopFront.Inventory.DataModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShopFront.Inventory.Queries.Products
 {
@@ -21,18 +21,20 @@ namespace ShopFront.Inventory.Queries.Products
             //using var db = new DataContext();
             using var db = new TempDataContext();
 
+            var category = db.Category.FirstOrDefault(x => x.CategoryId == qry.CategoryId);
+
             var records = db.Products
                 .Where(x => x.CategoryId == qry.CategoryId)
-                .Where(x=>x.IsVisible)
+                .Where(x => x.IsVisible)
                 .OrderBy(x => x.Title)
                 .Select(x => new
                 {
                     x.Title,
                     x.SubTitle,
                     x.ProductId,
-                    x.Price               
+                    x.Price
                 })
-                .Skip(qry.PageSize*qry.PageCount)
+                .Skip(qry.PageSize * qry.PageCount)
                 .Take(qry.PageSize)
                 .ToArray(); // todo : change to async
 
@@ -40,8 +42,9 @@ namespace ShopFront.Inventory.Queries.Products
             {
                 qry.PageCount,
                 qry.PageSize,
-                records
-            }; 
+                records,
+                category
+            };
 
             return new JsonQueryResult(data);
         }

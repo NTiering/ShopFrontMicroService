@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopFront.Common", "ShopFro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopFront.Inventory.Tests", "ShopFront.Inventory.Tests\ShopFront.Inventory.Tests.csproj", "{FC98E7F7-3304-4AFA-9E30-2DF4F6A1E347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFront.Web", "ShopFront.Web\ShopFront.Web.csproj", "{47E99587-D088-461D-BE19-404B1F23AE89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopFront.Api.ProdCat", "ShopFront.Web\ShopFront.Api.ProdCat.csproj", "{47E99587-D088-461D-BE19-404B1F23AE89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopFront.Api.ShoppingBasket", "ShopFront.Api.ShoppingBasket\ShopFront.Api.ShoppingBasket.csproj", "{59EA8613-DDB4-4511-ACA2-800EE52587AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{47E99587-D088-461D-BE19-404B1F23AE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E99587-D088-461D-BE19-404B1F23AE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E99587-D088-461D-BE19-404B1F23AE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59EA8613-DDB4-4511-ACA2-800EE52587AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59EA8613-DDB4-4511-ACA2-800EE52587AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59EA8613-DDB4-4511-ACA2-800EE52587AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59EA8613-DDB4-4511-ACA2-800EE52587AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

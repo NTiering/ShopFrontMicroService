@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopFront.Common;
+﻿using ShopFront.Common;
 using ShopFront.Cqrs.Queries;
 using ShopFront.Inventory.DataModels;
 using System.Linq;
@@ -29,12 +28,10 @@ namespace ShopFront.Inventory.Queries.Categories
                 {
                     x.Name,
                     Id = x.CategoryId,
-                    ProductCount = db.Products.Count(p=>p.CategoryId == x.CategoryId)
+                    ProductCount = db.Products.Count(p => p.CategoryId == x.CategoryId)
                 }).ToArray(); // todo : change to async
 
             return new JsonQueryResult(data);
         }
-
-
     }
 }
